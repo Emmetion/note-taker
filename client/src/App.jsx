@@ -1,16 +1,14 @@
 import './App.css'
-import SideBar from './components/SideBar/SideBar'
-import TopBar from './components/TopBar/TopBar'
-function App() {
+import SideBar from './pages/SideBar/SideBar'
+import TopBar from './pages/TopBar/TopBar'
+function App({page}) {
+
   return (
     <>
     <TopBar/>
-    <div className='flex flex-row'>
+    <div className='flex flex-row w-full h-100'>
       <SideBar/>
-      <div className='w-screen text-center'>
-        <h1 className='text-9xl'>Hey There!</h1>
-        <p>Welcome to the friendly note-taking app, Note-Taker!</p>
-      </div>
+        {page}
     </div>
     </>
   )

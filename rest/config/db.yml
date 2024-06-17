@@ -1,0 +1,5 @@
+host: localhost
+database: notetaker
+user: notetaker
+password: iamthenotetaker
+port: 5432
