@@ -10,6 +10,7 @@ import MyNotes from './pages/MyNotes/MyNotes.jsx';
 import CreateNote from './pages/CreateNote/CreateNote.jsx';
 import HomePage from './pages/HomePage/HomePage.jsx';
 import LoginPage from './pages/LoginPage/LoginPage.jsx';
+import EditNote from './pages/EditNote/EditNote.jsx';
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,11 @@ const router = createBrowserRouter([
     path: '/login',
     element: <App page={<LoginPage/>}/>
   },
+  {
+    path: '/edit-note/:id',
+    element: <App page={<EditNote/>}/>
+    
+  }
 ])
 
 ReactDOM.createRoot(document.getElementById('root')).render(

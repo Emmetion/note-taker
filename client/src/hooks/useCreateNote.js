@@ -1,4 +1,4 @@
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { addDoc, collection, serverTimestamp, documentId } from "firebase/firestore";
 import { db } from "../config/firebase-config";
 import { useGetUserInfo } from "./useGetUserInfo";
 
@@ -11,6 +11,11 @@ export const useCreateNote = () => {
     noteDescription,
     noteType,
   }) => {
+
+    if (userID === null || userID === undefined) {
+      console.log('User not logged in')
+      return;
+    }
     await addDoc(notesCollectionRef, {
       userID,
       noteName,
@@ -18,6 +23,7 @@ export const useCreateNote = () => {
       noteType,
       createdAt: serverTimestamp(),
     });
+    console.log('Note created successfully!')
   };
   return { createNote };
 };
