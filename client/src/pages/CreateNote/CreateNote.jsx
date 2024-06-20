@@ -5,6 +5,7 @@ import {
     Checkbox,
     Button,
     Typography,
+    Textarea,
   } from "@material-tailwind/react";
 import { db } from "../../config/firebase-config";
 import { useCreateNote } from "../../hooks/useCreateNote";
@@ -17,7 +18,7 @@ export default function CreateNote() {
 
     const { userID } =  useGetUserInfo();
 
-    const [newNote, setNewNote] = useState({name: '', type: ''})
+    const [newNote, setNewNote] = useState({name: '', type: '', description: ''})
     const [error, setError  ] = useState('');
 
     const updateNewNote = (e) => {
@@ -28,7 +29,7 @@ export default function CreateNote() {
     }
 
     const validateSubmition = () => {
-        return newNote.name !== '' && newNote.type !== '';
+        return newNote.name !== '' && newNote.type !== '' && newNote.description !== '';
     }
 
     const onSubmitClick = async () => {
@@ -44,7 +45,7 @@ export default function CreateNote() {
         }
         setError('')
 
-        await createNote({noteName: newNote.name, noteDescription: '', noteType: newNote.type})
+        await createNote({noteName: newNote.name, noteDescription: newNote.description, noteType: newNote.type})
     }
 
     return (
@@ -57,16 +58,27 @@ export default function CreateNote() {
             }
             <div className="w-[300px] self-center">
                 <div className='pt-5 h-auto mx-auto '>
-                    <label for='name' className="mr-3 text-xl">Name</label>
-                    <input id='name' type='text'
+                    <Input id='name' type='text'
+                        label='Name' 
                         value={newNote.name} 
                         onChange={(e) => updateNewNote(e)}
-                        className="h-10 pl-2 bg-gray-400 rounded-md focus:text-black focus:bg-white duration-150 w-max"/>
+                        className=" bg-gray-400 rounded-md focus:text-black focus:bg-white duration-150 "/>
                 </div>
                 <div className='pt-5 h-auto mx-auto w-auto'>
-                    <label for='type' className="mr-3 text-xl">Type: </label>
-                    <input id='type' type='text' 
+                    <Input id='type' 
+                        type='text' 
+                        label='Type'
                         value={newNote.type} 
+                        onChange={(e) => updateNewNote(e)}
+                        className="h-10 pl-2 bg-gray-400 rounded-md focus:text-black focus:bg-white duration-150 w-100%"/>
+                </div>
+                <div className='pt-5 h-auto mx-auto w-auto'>
+                    <Textarea 
+                        label='Description'
+                        id='description' 
+                        type='text'
+                        value={newNote.description} 
+                        resize='vertical'
                         onChange={(e) => updateNewNote(e)}
                         className="h-10 pl-2 bg-gray-400 rounded-md focus:text-black focus:bg-white duration-150 w-100%"/>
                 </div>
@@ -74,8 +86,8 @@ export default function CreateNote() {
 
             <div className="w-full flex space-x-7">
                 <div className="mx-auto pt-10 space-x-5">
-                    <button className="border-4 border-blue-500 bg-blue-500 text-white rounded-md text-2xl" onClick={onSubmitClick}>Create</button>
-                    <button className="border-4 border-red-500 bg-red-500 text-white rounded-md text-2xl">Cancel</button>
+                    <Button className=" bg-blue-500 text-white rounded-md" onClick={onSubmitClick}>Create</Button>
+                    <Button className=" bg-red-500 text-white rounded-md">Cancel</Button>
                 </div>
             </div>
 

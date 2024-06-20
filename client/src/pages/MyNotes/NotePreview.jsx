@@ -1,5 +1,5 @@
 
-import { Typography } from "@material-tailwind/react";
+import { Chip, Typography } from "@material-tailwind/react";
 import { useState } from "react";
 import { FaEdit } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
@@ -21,6 +21,15 @@ export default function NotePreview( {note} ) {
             <div className="w-full text-black ">
                 <Typography variant="h3" className="font-body">{note.noteName}</Typography>
             </div>
+            {/* Type of Note */}
+            <div className="pl-4 mr-auto text-black flex flex-row">
+                <Typography variant="h5" className="my-auto mr-2">Tags:{' '}</Typography>
+                {
+                    note.noteTags.map((tag) => <Chip value={tag} className="my-auto mr-2"></Chip>)
+                }
+                <Chip value={note.noteType} className="my-auto"></Chip>
+            </div>
+
             {/* Content of Note */}
             <div className="w-full text-black ">
                 <Typography variant='paragraph'>{note.noteDescription}</Typography>

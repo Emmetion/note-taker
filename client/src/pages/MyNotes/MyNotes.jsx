@@ -15,7 +15,7 @@ export default function MyNotes() {
             <p className="text-5xl mx-auto flex flex-row">Your Notes</p>
             <div className="mt-5"/>
             
-            <div className="flex flex-col">
+            <div className="flex flex-row">
                 { loading ? <p className="text-center mx-auto w-fit">Loading...</p> : null}
                 { notes !== null ? notes.map((note) => <p className="text-center mx-auto w-fit">
                     <Note note={note}/>
