@@ -1,43 +1,39 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
-import './index.css'
-import MyNotes from './pages/MyNotes/MyNotes.jsx';
-import CreateNote from './pages/CreateNote/CreateNote.jsx';
-import HomePage from './pages/HomePage/HomePage.jsx';
-import LoginPage from './pages/LoginPage/LoginPage.jsx';
-import EditNote from './pages/EditNote/EditNote.jsx';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App.jsx";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import "./index.css";
+import MyNotes from "./pages/MyNotes/MyNotes.jsx";
+import CreateNote from "./pages/CreateNote/CreateNote.jsx";
+import HomePage from "./pages/HomePage/HomePage.jsx";
+import LoginPage from "./pages/LoginPage/LoginPage.jsx";
+import EditNote from "./pages/EditNote/EditNote.jsx";
 
 const router = createBrowserRouter([
   {
-    path: '/',
-    element: <App page={<HomePage/>}/>
-  }, 
-  {
-    path: '/my-notes',
-    element: <App page={<MyNotes/>}/>
-  },   
-  {
-    path: '/create-note',
-    element: <App page={<CreateNote/>}/>
+    path: "/",
+    element: <App page={<HomePage />} />,
   },
   {
-    path: '/login',
-    element: <App page={<LoginPage/>}/>
+    path: "/my-notes",
+    element: <App page={<MyNotes />} />,
   },
   {
-    path: '/edit-note/:id',
-    element: <App page={<EditNote/>}/>
-    
-  }
-])
+    path: "/create-note",
+    element: <App page={<CreateNote />} />,
+  },
+  {
+    path: "/login",
+    element: <App page={<LoginPage />} />,
+  },
+  {
+    path: "/edit-note/:id",
+    element: <App page={<EditNote />} />,
+  },
+]);
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router}/>
+    <RouterProvider router={router} />
   </React.StrictMode>,
-)
+);
