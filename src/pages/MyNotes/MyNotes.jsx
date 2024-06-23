@@ -10,7 +10,7 @@ export default function MyNotes() {
   }, [notes]);
 
   return (
-    <div className="flex w-full flex-col pt-10">
+    <div className="flex h-full w-full flex-col pt-10">
       <p className="mx-auto flex flex-row text-5xl">Your Notes</p>
       <div className="mt-5" />
         
@@ -20,9 +20,9 @@ export default function MyNotes() {
         ) : null}
         {notes !== null
           ? notes.map((note) => (
-              <p className="mx-auto w-fit text-center">
-                <Note note={note} />
-              </p>
+              <div className="mx-auto w-fit flex">
+                <Note note={note} key={note.id}/>
+              </div>
             ))
           : null}
       </div>

@@ -9,7 +9,7 @@ export default function NotePreview({ note }) {
   const nav = useNavigate();
 
   const editNoteButton = () => {
-    nav(`/edit-note/${note}`);
+    nav(`/edit-note/${note.id}`);
   };
 
   return (
@@ -18,7 +18,7 @@ export default function NotePreview({ note }) {
       onClick={() => editNoteButton()}
     >
       {/* Title of Note */}
-      <div className="w-full text-black">
+      <div className="w-full text-black text-center">
         <Typography variant="h3" className="font-body">
           {note.noteName}
         </Typography>
@@ -28,9 +28,7 @@ export default function NotePreview({ note }) {
         <Typography variant="h5" className="my-auto mr-2">
           Tags:{" "}
         </Typography>
-        {/* {
-                    note.noteTags.map((tag) => <Chip value={tag} className="my-auto mr-2"></Chip>)
-                } */}
+        {/* Add tags here with Chips. */}
         <Chip value={note.noteType} className="my-auto"></Chip>
       </div>
 
@@ -40,7 +38,7 @@ export default function NotePreview({ note }) {
       </div>
       {/* Actions Bar */}
       <div className="mt-auto w-full">
-        <div className="ml-auto w-fit pr-3">
+        <div className="ml-4 ml-auto w-fit pr-3">
           <FaEdit
             size={30}
             onMouseOver={() => setEditColor("white")}

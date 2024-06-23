@@ -22,11 +22,15 @@ export const useGetNotes = () => {
         }
 
         try {
-            console.log(userID);
             const q = query(notesCollectionRef, where('userID', '==', userID));
             const notesSnapshot = await getDocs(q);
-            const notesData = notesSnapshot.docs.map((doc) => doc.data());
-            console.log(notesData)
+            const notesData = [];
+            notesSnapshot.docs.forEach(doc => {
+                let d = doc.data();
+                d.id = doc.id; // Include DocumentID in data.
+                notesData.push(d);
+            });
+            console.log(notesData);
             setNotes(notesData);
             setLoading(false);
             return notesData;
@@ -37,9 +41,31 @@ export const useGetNotes = () => {
         }
     }   
 
+    const getSingleNote = async (noteID) => {
+        if (notes === null) {
+            await fetchNotes();
+            console.error('Attempted to fetch note without notes data.');
+            return null;
+        }
+        let tempNote = null;
+        notes.forEach(note => {
+            console.log(note);
+            console.log("looking for: ", noteID)
+            if (note.id === noteID) {
+                tempNote = note;
+            }
+        });
+
+        if (tempNote === null) {
+            console.error('Failed to locate note.id: ', noteID);
+            return null;
+        }
+        return tempNote;
+    }
+
     useEffect(() => {
         fetchNotes();
     }, [userID]);
     
-    return { notes, loading, fetchNotes };
+    return { notes, loading, fetchNotes, getSingleNote };
 }
