@@ -20,7 +20,7 @@ export default function SideBar() {
   };
 
   return (
-    <div className="mr-auto h-screen w-1/3 min-w-64 max-w-96 border-r">
+    <div className="mr-auto h-full w-96 border-r">
       <div className="flex w-full flex-col pt-10">
         <Menu>
           <MenuHandler>

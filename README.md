@@ -3,10 +3,5 @@ Is a simple React application written in JavaScript. It's purpose is serve as an
 
 
 # Current To-do items.
-
-### REST
-- 
-
-### CLIENT
-- My Notes page
-- Tags 
+Active trelloboard to see what i'm working on.
+### [Trello](https://google.com)
