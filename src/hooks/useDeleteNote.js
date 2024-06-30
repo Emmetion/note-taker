@@ -1,4 +1,4 @@
-import { addDoc, collection, serverTimestamp, documentId, deleteDoc, getDoc } from "firebase/firestore";
+import { addDoc, collection, serverTimestamp, documentId, deleteDoc, getDoc, doc } from "firebase/firestore";
 import { db } from "../config/firebase-config";
 import { useGetUserInfo } from "./useGetUserInfo";
 
@@ -7,20 +7,21 @@ export const useDeleteNote = () => {
     const { userID } = useGetUserInfo();
 
     const deleteNote = async (id) => {
-        const doc = await getDoc(notesCollectionRef, id);
+        const docRef = doc(notesCollectionRef, id);
+        const document = await getDoc(docRef);
 
-        if (doc == null) {
+        if (document == null) {
             // assume doc is already deleted.
             console.error('deleteing doc that doesn\'t exist.');
             return;
         }
-
-        if (doc.id !== userID) {
+        let data = document.data();
+        if (data.userID !== userID) {
             // deleting a document belonging to a different user.
             console.error('attempted to delete doc not owned.')
         }
 
-        await deleteDoc(doc);
+        await deleteDoc(docRef);
     }
 
     return { deleteNote }

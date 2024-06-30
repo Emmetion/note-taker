@@ -14,13 +14,11 @@ export default function NotePreview({ note }) {
   };
 
   const trashButton = async () => {
-    await deleteNote(note.id)
-  }
+    await deleteNote(note.id);
+  };
 
   return (
-    <div
-      className="flex h-[250px] w-[300px] cursor-pointer flex-col rounded-lg border-[1px] border-black shadow-lg shadow-md duration-100 hover:scale-105 hover:shadow-lg hover:shadow-gray-500"
-    >
+    <div className="flex h-[250px] w-[300px] cursor-pointer flex-col rounded-lg border-[1px] border-black shadow-md duration-100 hover:scale-105 hover:shadow-lg hover:shadow-gray-500">
       {/* Title of Note */}
       <div className="w-full text-center text-black">
         <Typography variant="h3" className="font-body">
@@ -42,20 +40,20 @@ export default function NotePreview({ note }) {
       </div>
       {/* Actions Bar */}
       <div className="mt-auto w-full">
-        <div className="ml-4 ml-auto flex w-fit flex-row gap-2 mb-3 mr-3">
+        <div className="mb-3 ml-4 ml-auto mr-3 flex w-fit flex-row gap-2">
           <FaEdit
             size={30}
             onMouseOver={() => setEditColor("white")}
             onMouseOut={() => setEditColor("black")}
             onClick={editNoteButton}
-            className="border-[7px] box-border border-white rounded-md hover:text-white duration-100 hover:border-green-500 hover:bg-green-500"
-            />
+            className="box-border rounded-md border-[7px] border-white duration-100 hover:border-green-500 hover:bg-green-500 hover:text-white"
+          />
           <FaTrashAlt
             size={30}
             onMouseOver={() => setEditColor("white")}
             onMouseOut={() => setEditColor("black")}
             onClick={trashButton}
-            className="border-[7px] box-border border-white rounded-md hover:text-white duration-100 hover:border-red-500 hover:bg-red-500"
+            className="box-border rounded-md border-[7px] border-white duration-100 hover:border-red-500 hover:bg-red-500 hover:text-white"
           />
         </div>
       </div>

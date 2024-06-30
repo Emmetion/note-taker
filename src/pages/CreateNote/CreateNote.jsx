@@ -15,7 +15,6 @@ import { useGetNotes } from "../../hooks/useGetNotes";
 export default function CreateNote() {
   const { createNote } = useCreateNote();
   const { fetchNotes } = useGetNotes();
-
   const { userID } = useGetUserInfo();
 
   const [newNote, setNewNote] = useState({
@@ -108,15 +107,6 @@ export default function CreateNote() {
           <Button className="rounded-md bg-red-500 text-white">Cancel</Button>
         </div>
       </div>
-
-      <Button
-        color="amber"
-        onClick={() => {
-          console.log(fetchNotes());
-        }}
-      >
-        Click for Data.
-      </Button>
     </div>
   );
 }
