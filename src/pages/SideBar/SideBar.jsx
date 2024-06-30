@@ -24,7 +24,7 @@ export default function SideBar() {
       <div className="flex w-full flex-col pt-10">
         <Menu>
           <MenuHandler>
-            <Button color="green" className="mx-auto w-fit text-xl">
+            <Button color="green" className="mx-auto w-fit text-xl" fullWidth>
               {" "}
               Create a Note
             </Button>
@@ -55,7 +55,6 @@ export default function SideBar() {
                 <MenuItem>Nested Item 3</MenuItem>
               </MenuList>
             </Menu>
-            <MenuItem>Item 3</MenuItem>
           </MenuList>
         </Menu>
 

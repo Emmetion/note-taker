@@ -4,7 +4,7 @@ import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { useDeleteNote } from "../../hooks/useDeleteNote";
 
-export default function NotePreview({ note }) {
+export default function NotePreview({ note, deleteCallback }) {
   const [editColor, setEditColor] = useState("black");
   const { deleteNote } = useDeleteNote();
   const nav = useNavigate();
@@ -15,6 +15,7 @@ export default function NotePreview({ note }) {
 
   const trashButton = async () => {
     await deleteNote(note.id);
+    deleteCallback();
   };
 
   return (

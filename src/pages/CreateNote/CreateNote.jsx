@@ -3,6 +3,8 @@ import {
   Input,
   Button,
   Textarea,
+  Select,
+  Option,
 } from "@material-tailwind/react";
 import { useCreateNote } from "../../hooks/useCreateNote";
 import { useGetUserInfo } from "../../hooks/useGetUserInfo";
@@ -20,12 +22,19 @@ export default function CreateNote() {
     type: "",
     description: "",
   });
-  const [message, setMessage] = useState({msg: '', class: ''});
+  const [message, setMessage] = useState({ msg: "", class: "" });
 
   const updateNewNote = (e) => {
     setNewNote({
       ...newNote,
       [e.target.id]: e.target.value,
+    });
+  };
+
+  const updateNewNoteType = (val) => {
+    setNewNote({
+      ...newNote,
+      type: val,
     });
   };
 
@@ -37,33 +46,40 @@ export default function CreateNote() {
 
   const onSubmitClick = async () => {
     if (userID === null || userID === undefined) {
-      setMessage({msg: 'User not logged in.', class: ''});
+      setMessage({ msg: "User not logged in.", class: "" });
       return;
     }
 
     if (!validateSubmition()) {
-      setMessage({msg: 'Please fill out all fields.', class: ''});
-      
+      setMessage({ msg: "Please fill out all fields.", class: "" });
+
       return;
     }
-    setMessage({msg: '', class: ''});
+    setMessage({ msg: "", class: "" });
 
     await createNote({
       name: newNote.name,
       description: newNote.description,
       type: newNote.type,
     });
+
+    // Redirect to MyNotes page.
+    nav("/my-notes?noteCreated=true");
   };
 
-  const onCancelClick = () => { 
-    nav('/my-notes')
+  const onCancelClick = () => {
+    nav("/my-notes");
   };
 
   return (
     <div className="flex h-full w-full flex-col pt-5">
       <p className="w-full text-center text-4xl">Create a Note</p>
-      {message.msg !== '' ? (
-        <p className={`w-full text-center text-xl text-red-300 ${message.class}`}>{message.msg}</p>
+      {message.msg !== "" ? (
+        <p
+          className={`w-full text-center text-xl text-red-300 ${message.class}`}
+        >
+          {message.msg}
+        </p>
       ) : null}
       <div className="w-[300px] self-center">
         <div className="mx-auto h-auto pt-5">
@@ -77,14 +93,23 @@ export default function CreateNote() {
           />
         </div>
         <div className="mx-auto h-auto w-auto pt-5">
-          <Input
+          <Select
             id="type"
-            type="text"
-            label="Type"
             value={newNote.type}
-            onChange={(e) => updateNewNote(e)}
-            className="w-100% h-10 rounded-md bg-gray-400 pl-2 duration-150 focus:bg-white focus:text-black"
-          />
+            onChange={(val) => updateNewNoteType(val)}
+            className="w-100% h-10 rounded-md pl-2"
+            label="Select Type"
+          >
+            <Option id="personal" value="personal">
+              Personal
+            </Option>
+            <Option id="work" value="work">
+              Work
+            </Option>
+            <Option id="school" value="school">
+              School
+            </Option>
+          </Select>
         </div>
         <div className="mx-auto h-auto w-auto pt-5">
           <Textarea
@@ -107,7 +132,12 @@ export default function CreateNote() {
           >
             Create
           </Button>
-          <Button className="rounded-md bg-red-500 text-white" onClick={onCancelClick}>Cancel</Button>
+          <Button
+            className="rounded-md bg-red-500 text-white"
+            onClick={onCancelClick}
+          >
+            Cancel
+          </Button>
         </div>
       </div>
     </div>
