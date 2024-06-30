@@ -7,9 +7,9 @@ export const useCreateNote = () => {
   const { userID } = useGetUserInfo();
 
   const createNote = async ({
-    noteName,
-    noteDescription,
-    noteType,
+    name,
+    description,
+    type,
   }) => {
 
     if (userID === null || userID === undefined) {
@@ -18,9 +18,9 @@ export const useCreateNote = () => {
     }
     await addDoc(notesCollectionRef, {
       userID,
-      noteName,
-      noteDescription,
-      noteType,
+      name,
+      description,
+      type,
       createdAt: serverTimestamp(),
     });
     console.log('Note created successfully!')

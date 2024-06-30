@@ -1,18 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
-  Card,
   Input,
-  Checkbox,
   Button,
-  Typography,
   Textarea,
 } from "@material-tailwind/react";
-import { db } from "../../config/firebase-config";
 import { useCreateNote } from "../../hooks/useCreateNote";
 import { useGetUserInfo } from "../../hooks/useGetUserInfo";
 import { useGetNotes } from "../../hooks/useGetNotes";
+import { useNavigate } from "react-router-dom";
 
 export default function CreateNote() {
+  const nav = useNavigate();
   const { createNote } = useCreateNote();
   const { fetchNotes } = useGetNotes();
   const { userID } = useGetUserInfo();
@@ -22,7 +20,7 @@ export default function CreateNote() {
     type: "",
     description: "",
   });
-  const [error, setError] = useState("");
+  const [message, setMessage] = useState({msg: '', class: ''});
 
   const updateNewNote = (e) => {
     setNewNote({
@@ -39,28 +37,33 @@ export default function CreateNote() {
 
   const onSubmitClick = async () => {
     if (userID === null || userID === undefined) {
-      setError("User not logged in");
+      setMessage({msg: 'User not logged in.', class: ''});
       return;
     }
 
     if (!validateSubmition()) {
-      setError("Please fill out all fields");
+      setMessage({msg: 'Please fill out all fields.', class: ''});
+      
       return;
     }
-    setError("");
+    setMessage({msg: '', class: ''});
 
     await createNote({
-      noteName: newNote.name,
-      noteDescription: newNote.description,
-      noteType: newNote.type,
+      name: newNote.name,
+      description: newNote.description,
+      type: newNote.type,
     });
+  };
+
+  const onCancelClick = () => { 
+    nav('/my-notes')
   };
 
   return (
     <div className="flex h-full w-full flex-col pt-5">
       <p className="w-full text-center text-4xl">Create a Note</p>
-      {error ? (
-        <p className="w-full text-center text-xl text-red-300">{error}</p>
+      {message.msg !== '' ? (
+        <p className={`w-full text-center text-xl text-red-300 ${message.class}`}>{message.msg}</p>
       ) : null}
       <div className="w-[300px] self-center">
         <div className="mx-auto h-auto pt-5">
@@ -104,7 +107,7 @@ export default function CreateNote() {
           >
             Create
           </Button>
-          <Button className="rounded-md bg-red-500 text-white">Cancel</Button>
+          <Button className="rounded-md bg-red-500 text-white" onClick={onCancelClick}>Cancel</Button>
         </div>
       </div>
     </div>
